@@ -1,5 +1,5 @@
 
-- Pickle# Mouse_tracking_predictor
+# Mouse_tracking_predictor
 LSTM network to predict mouse movements - training, prediction and interactive dataset generation. This is just a demo to show how LSM can be used and by no means can accurately predict how the user is going to move the mouse. However it is interesting to note how the predictions tend to follow the direction in which the mouse is moving initially, and also diverge from the boundaries of the drawing area.
 
 ![Alt text](/Images/Mouse_tracker.gif?raw=true "Demo")
@@ -33,6 +33,6 @@ To start prediction, press 'p'. The actual trail of the mouse position for 'time
 
 ## Misc
 Press 'c' to clear the screen.
-Press 'h' to print out a help script
-Press 'i' to go back to idle mode
-Press 'ESC' to quit the program
+Press 'h' to print out a help script.
+Press 'i' to go back to idle mode.
+Press 'ESC' to quit the program.
