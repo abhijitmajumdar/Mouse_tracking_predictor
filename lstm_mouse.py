@@ -10,7 +10,7 @@ dataset_filename = 'mouse_data.txt'
 weights_save_name = "weights_lstm_mouse.hdf5"
 CONTINUE_TRAINING_WHERE_YOU_LEFT_OFF=True
 timesteps = 16
-n_predictions = 128
+n_predictions = 64
 MAX_X,MAX_Y = 1024,1024
 
 # Global variables
@@ -58,7 +58,7 @@ def trace_mouse_movements(event,x,y,flags,param):
                 normalize(pred_dataset,scale_down=True)
                 for i in range(n_predictions):
                     input_sequence = np.array([j for j in pred_dataset[i:i+timesteps]])
-                    input_sequence = np.reshape(input_sequence,(-1,2,input_sequence.shape[0]))
+                    input_sequence = np.reshape(input_sequence,(1,input_sequence.shape[0],input_sequence.shape[1]))
                     _temp = model.predict(input_sequence)
                     pred_dataset.append([_temp[0][0],_temp[0][1]])
                 normalize(pred_dataset,scale_down=False)
@@ -79,9 +79,7 @@ def load_pretrained_weights():
 def generate_model(load_weights=False):
     global model
     model = Sequential()
-    model.add(LSTM(64, return_sequences=False, input_shape=(2,timesteps)))
-    #model.add(LSTM(32, return_sequences=True))
-    #model.add(LSTM(32))
+    model.add(LSTM(64, return_sequences=False, input_shape=(timesteps,2), implementation=2))
     model.add(Dense(2, activation='relu'))
     model.compile(loss='mse', optimizer='adam')
     if(load_weights==True): load_pretrained_weights()
@@ -113,7 +111,6 @@ def get_data_to_train(how_many):
         output_data.append(_temp[1])
     input_data = np.array(input_data)
     output_data = np.array(output_data)
-    input_data = np.reshape(input_data,(input_data.shape[0],2,input_data.shape[1]))
     return input_data,output_data
 
 # Training...

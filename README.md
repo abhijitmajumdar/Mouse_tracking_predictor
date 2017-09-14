@@ -36,3 +36,9 @@ Press 'c' to clear the screen.
 Press 'h' to print out a help script.
 Press 'i' to go back to idle mode.
 Press 'ESC' to quit the program.
+
+## Changes
+- New branch changes:
+    - Changed the input shape from (batch,features,timesteps) to (batch,timesteps,features); complaint with keras LSTM layer inputs
+    - This change uses less network parameters(~20k down to ~17k)
+    - This algorithm however runs slower than before (both training and prediction). Since the shape is changed, the feed forward is different. Hence even though the parameters are less, more gates are now used(due to an actual timestep), which makes the feed-forward slower.
